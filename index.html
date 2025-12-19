@@ -3,153 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Bubu 🌷💗</title>
+<title>For Aara ❤️</title>
 
 <style>
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
-    color: #fff;
-    text-align: center;
-    overflow-x: hidden;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
 }
-.container {
-    padding: 40px 20px;
-}
-.card {
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(10px);
-    border-radius: 25px;
-    padding: 30px;
-    max-width: 420px;
-    margin: auto;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-}
-h1 {
-    font-size: 2.2em;
-}
-img {
-    width: 220px;
-    height: auto;
-    border-radius: 20px;
-    margin: 15px 0;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-button {
-    background: #fff;
-    color: #ff5f9e;
-    border: none;
-    padding: 14px 26px;
-    border-radius: 30px;
-    font-size: 1em;
-    cursor: pointer;
-    margin-top: 20px;
-}
-button:hover {
-    transform: scale(1.05);
-}
-.hidden {
-    display: none;
-}
-.reason {
-    background: rgba(255,255,255,0.25);
-    margin: 10px 0;
-    padding: 12px;
-    border-radius: 14px;
-}
-.heart {
-    position: fixed;
-    font-size: 22px;
-    animation: float 4s linear infinite;
-}
-@keyframes float {
-    0% {transform: translateY(0); opacity: 1;}
-    100% {transform: translateY(-900px); opacity: 0;}
-}
-</style><script>
-  let pass = prompt("🔒 Enter the secret code 💖\nHint: Our favorite number");
 
-  if (pass !== "14") {
-    document.documentElement.innerHTML = `
-      <body style="
-        margin:0;
-        font-family:Segoe UI;
-        background:linear-gradient(135deg,#141e30,#243b55);
-        color:#fff;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        height:100vh;
-        text-align:center;">
-        
-        <div>
-          <h1>Access Denied 🚫</h1>
-          <p>This page is locked for someone very special ❤️</p>
-          <p style="opacity:0.7;">Hint: Our favorite number</p>
-        </div>
-      </body>
-    `;
+/* LOCK SCREEN */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lockBox {
+  background: rgba(255,255,255,0.2);
+  padding: 30px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.heartLock {
+  font-size: 70px;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+/* MAIN CARD */
+.container {
+  padding: 40px 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.18);
+  border-radius: 25px;
+  padding: 30px;
+  max-width: 420px;
+  margin: auto;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+img {
+  width: 220px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+button {
+  background: #fff;
+  color: #ff5f9e;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.reason {
+  background: rgba(255,255,255,0.25);
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+/* WELCOME ANIMATION */
+#welcome {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: 1.2s ease;
+}
+
+#welcome.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* FLOATING HEARTS */
+.heart {
+  position: fixed;
+  font-size: 22px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-900px); opacity: 0; }
+}
+</style>
+
+<script>
+const PASSWORD = "14";
+
+function unlock() {
+  const input = document.getElementById("passInput").value;
+
+  if (input === PASSWORD) {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+
+    document.getElementById("bgMusic").play();
+    document.getElementById("welcome").classList.add("show");
+
+    setInterval(() => {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerHTML = "❤️";
+      h.style.left = Math.random()*100 + "vw";
+      h.style.bottom = "0px";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    }, 300);
+  } else {
+    alert("❌ Wrong number\nHint: Our favorite number 💖");
   }
+}
 </script>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="card">
-        <h1>Hey Baccha ❤️</h1>
-        <p>I made something special just for you.</p>
-
-        <!-- Replace src with photo file name if needed -->
-        <img src="IMG_20251212_012857.jpg" alt="Aara">
-
-        <button onclick="showLove()">Tap to see my heart 💕</button>
-
-        <div id="loveContent" class="hidden">
-            <h2>My Dearest Aara 💖</h2>
-
-            <p>
-                Even with miles between us,<br>
-                my heart feels closest to you.
-            </p>
-
-            <h3>Reasons I Love You</h3>
-            <div class="reason">Your smile makes my worst days better 😊</div>
-            <div class="reason">You are graceful, strong, and beautiful</div>
-            <div class="reason">You make me feel calm and understood</div>
-            <div class="reason">I see my future with you, always</div>
-
-            <p style="margin-top:18px;">
-                Distance can never weaken what I feel for you.
-            </p>
-
-            <h2>Always Yours ❤️</h2>
-        </div>
-    </div>
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lockBox">
+    <div class="heartLock">❤️</div>
+    <h2>Private Love Page</h2>
+    <p>Hint: Our favorite number 💕</p>
+    <input id="passInput" type="number" placeholder="Enter number"
+      style="padding:10px;border-radius:20px;border:none;text-align:center;">
+    <br><br>
+    <button onclick="unlock()">Unlock 💖</button>
+  </div>
 </div>
 
-<script>
-function showLove() {
-    document.getElementById("loveContent").classList.remove("hidden");
-    createHearts();
-}
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-function createHearts() {
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.bottom = "0px";
-        document.body.appendChild(heart);
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
+  <div class="container">
+    <h1 id="welcome">Welcome Bubu 💖</h1>
 
-        setTimeout(() => {
-            heart.remove();
-        }, 4000);
-    }, 300);
-}
-</script>
+    <div class="card">
+      <p>I made this page only for you ❤️</p>
+      <img src="aara.jpg" alt="Aara">
+
+      <h3>Reasons I Love You</h3>
+      <div class="reason">Your smile makes everything better 😊</div>
+      <div class="reason">You understand me deeply</div>
+      <div class="reason">You are my calm and my strength</div>
+      <div class="reason">I see my future wife in you</div>
+
+      <p style="margin-top:20px;">
+        Distance may separate us,<br>
+        but my heart is always with you 💕
+      </p>
+
+      <h2>Always Yours ❤️</h2>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
+        
