@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,35 +64,28 @@ img {
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-button {
-  background: #fff;
-  color: #ff5f9e;
-  border: none;
-  padding: 14px 26px;
-  border-radius: 30px;
-  font-size: 1em;
-  cursor: pointer;
-}
-
-.hidden { display: none; }
-
-.reason {
-  background: rgba(255,255,255,0.25);
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 14px;
-}
-
-/* WELCOME ANIMATION */
+/* WELCOME */
 #welcome {
   opacity: 0;
   transform: scale(0.4);
   transition: 1.2s ease;
 }
-
 #welcome.show {
   opacity: 1;
   transform: scale(1);
+}
+
+/* TIMER */
+#timerBox {
+  margin-top: 25px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.25);
+  font-size: 1.05em;
+}
+#timer {
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 /* FLOATING HEARTS */
@@ -100,7 +94,6 @@ button {
   font-size: 22px;
   animation: float 4s linear infinite;
 }
-
 @keyframes float {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-900px); opacity: 0; }
@@ -109,6 +102,31 @@ button {
 
 <script>
 const PASSWORD = "14";
+
+/* IST TIME HANDLING */
+function getISTNow() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  return new Date(utc + (5.5 * 60 * 60 * 1000));
+}
+
+/* SINCE WE MET DATE (IST) */
+const metDateIST = new Date("2025-05-14T00:00:00+05:30");
+
+function updateTimer() {
+  const nowIST = getISTNow();
+  let diff = nowIST - metDateIST;
+
+  if (diff < 0) diff = 0;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("timer").innerHTML =
+    `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds ❤️`;
+}
 
 function unlock() {
   const input = document.getElementById("passInput").value;
@@ -119,6 +137,9 @@ function unlock() {
 
     document.getElementById("bgMusic").play();
     document.getElementById("welcome").classList.add("show");
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
 
     setInterval(() => {
       const h = document.createElement("div");
@@ -159,28 +180,41 @@ function unlock() {
 <!-- MAIN CONTENT -->
 <div id="mainContent" style="display:none;">
   <div class="container">
-    <h1 id="welcome">Welcome Bubu 💖</h1>
+    <h1 id="welcome">Welcome Aara 💖</h1>
 
     <div class="card">
-      <p>I made this page only for you ❤️</p>
-      <img src="IMG_20251212_012857.jpg" alt="Aara">
+      <img src="aara.jpg" alt="Aara">
 
-      <h3>Reasons I Love You</h3>
-      <div class="reason">Your smile makes everything better 😊</div>
-      <div class="reason">You understand me deeply</div>
-      <div class="reason">You are my calm and my strength</div>
-      <div class="reason">I see my future wife in you</div>
+      <p style="margin-top:20px; line-height:1.6;">
+        <b>Baby</b>, tu mere liye <b>bohot mayne rakhti hai</b>, meri jaan.  
+        Tu mere liye <b>sabse khaas hai</b> 💖<br><br>
 
-      <p style="margin-top:20px;">
-        Distance may separate us,<br>
-        but my heart is always with you 💕
+        Itna <b>door hoke bhi</b> tu mera <b>dhyaan rakhti hai</b>,  
+        meri bacchi 🥺❤️<br><br>
+
+        Your baccha <b>loves you a lot, a lot</b> 😘  
+        Hamesha <b>teri care</b> aur tujhe <b>pamper karne</b> ke liye  
+        tere liye available rahega 💕<br><br>
+
+        Bas itna batana chahta hoon ki  
+        tu <b>sabse best girlfriend</b> hai, bubu 🫶  
+        Aur <b>tere jaisa</b> mujhe aaj tak <b>koi nahi mila</b>.<br><br>
+
+        Itni <b>pure soul</b>, itni <b>kind-hearted bandi</b> 🕊️✨<br><br>
+
+        <b>I love you a lot, a lot, a lot ❤️</b><br>
+        <b>Mera baccha 💞</b>
       </p>
 
-      <h2>Always Yours ❤️</h2>
+      <!-- SINCE WE MET TIMER -->
+      <div id="timerBox">
+        <div>⏳ <b>Since we met</b></div>
+        <div id="timer">Loading...</div>
+      </div>
+
     </div>
   </div>
 </div>
 
 </body>
 </html>
-        
